@@ -30,7 +30,6 @@ wsServer.on('request', (request) => {
     });
 });
 
-
 function initiatorServer(server, port) {
     server.listen(port, () => {
         console.log(`Server connecting to port ${port}`);
