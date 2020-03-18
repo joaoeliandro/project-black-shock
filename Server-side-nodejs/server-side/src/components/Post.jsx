@@ -6,14 +6,28 @@ export default class Post extends React.Component {
         super(props);
 
         this.state = {
-            comments: [
-                { text: 'Incrível, tô achando demais!' }
-            ]
+            comments: [],
+            newCommentText: ''
         };
+
+        this.handlesubmit = this.handleSubmit.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
     }
 
-    handlesubmit(e) {
+    handleSubmit(e) {
+        this.setState({
+            comments: [
+                ...this.state.comments,
+                { text: this.state.newCommentText }
+            ]
+        });
+
+        this.setState({ newCommentText: '' });
         e.preventDefault();
+    }
+
+    handleTextChange(e) {
+        this.setState({ newCommentText: e.target.value });
     }
 
     render() {
@@ -21,7 +35,10 @@ export default class Post extends React.Component {
             <div>
                 <h2>{this.props.title}</h2>
                 <form onSubmit={this.handlesubmit}>
-                    <input type="text" name="" id="" />
+                    <input type="text" name="" id=""
+                        value={this.state.newCommentText}
+                        onChange={this.handleTextChange}
+                    />
                     <button type="submit">Comentar</button>
                 </form>
                 {this.state.comments.map((comments, index) => {
